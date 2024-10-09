@@ -19,7 +19,7 @@ In this work, a Service Account was created because it is used for server-side a
 2. Create Service Account Credentials:\
         * Under the same "APIs & Services" menu, navigate to "Credential".\
         * Click "CREATE CREDENTIALS" and select "Service Account".\
-        * Fill out the form and click "Create".\
+        * Fill out the form and click "Create".
 3. Geenrate a JSON Key for the Service Account:\
         * On the Service Accounts listing, in the right side, find and click "Manage service accounts".\
         * Click the "⋮" (three dots) icon of your created Service Account and select "Manage keys".\
