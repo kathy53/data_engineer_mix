@@ -8,19 +8,19 @@ To update data in a GS using Python automatically, follow the next steps:
 * You can create a new project or use an existing one.
 > Create a Service Account and Credentials
 In this work, a Service Account was created because it is used for server-side automation, like uploading to Google Sheets. The steps to create the account and the necessary credentials are:\
-        1. Enable the APIs access:\
-                * Go to "for APIs & Services" in the Google Cloud Console.\
-                * Click on "ENABLE APIS AND SERVICES".\
-                * Search for and enable "Google Drive API". Do the same for "Google Sheets API".\
-        2. Create Service Account Credentials:\
-                * Under the same "APIs & Services" menu, navigate to "Credential".\
-                * Click "CREATE CREDENTIALS" and select "Service Account".\
-                * Fill out the form and click "Create".\
-        3. Geenrate a JSON Key for the Service Account:\
-                * On the Service Accounts listing, in the right side, find and click "Manage service accounts".\
-                * Click the "⋮" (three dots) icon of your created Service Account and select "Manage keys".\
-                * Click "ADD KEY" and select "JSON".\
-                * Finally, click “Create”. A JSON file will be downloaded automatically. Save it in a secure location and rename it to something descriptive.
+1. Enable the APIs access:\
+        * Go to "for APIs & Services" in the Google Cloud Console.\
+        * Click on "ENABLE APIS AND SERVICES".\
+        * Search for and enable "Google Drive API". Do the same for "Google Sheets API".\
+2. Create Service Account Credentials:\
+        * Under the same "APIs & Services" menu, navigate to "Credential".\
+        * Click "CREATE CREDENTIALS" and select "Service Account".\
+        * Fill out the form and click "Create".\
+3. Geenrate a JSON Key for the Service Account:\
+        * On the Service Accounts listing, in the right side, find and click "Manage service accounts".\
+        * Click the "⋮" (three dots) icon of your created Service Account and select "Manage keys".\
+        * Click "ADD KEY" and select "JSON".\
+        * Finally, click “Create”. A JSON file will be downloaded automatically. Save it in a secure location and rename it to something descriptive.
 > Set up the Google Sheet
 * Create a GS, the one that will be automatically updated by your script.
 * Share the spreadsheet with the client_email found in the JSON credential file. Share it as you normaly share with other email accounts, provide "Edit" access.
