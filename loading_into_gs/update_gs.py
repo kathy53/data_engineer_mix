@@ -1,5 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
 scope = [
     "https://spreadsheets.google.com/feeds",
@@ -11,7 +12,14 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
     "client_secret_cred.json", scope
 )
 client = gspread.authorize(credentials)
+# open the GS
 spreadsheet = client.open("data_nd_business")
-with open("result.csv", "r") as file_obj:
-    content = file_obj.read()
-    client.import_csv(spreadsheet.id, data=content)
+
+with open("result.csv", "r") as f:
+    content = f.read()
+
+client.import_csv(spreadsheet.id, data=content)
+
+# creating a new worksheet
+date = datetime.today().strftime("%Y-%m-%d")
+# worksheet = spreadsheet.add_worksheet(title=date)
