@@ -11,3 +11,6 @@ This is a topic not just relevant for DE, but everyone developing with Python.
 
 ### loading_into_gs
 Updating cloud files is a must in the DE set of skills. Here, I want to create an example of howw to update data into a Google Sheet.
+
+### azure_terraform
+Creating a setup to create a postgresql database, for that I created a server and configured a firewall. The resources are created using terraform and the Cloud provider is Azure.
