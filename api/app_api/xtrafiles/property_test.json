@@ -1,0 +1,39 @@
+{
+  "property_id": "886f9620-8388-99b9-a6ace60f7b4d",
+  "crawl_date": "2024-12-11",
+  "realestatesite": "lmd",
+  "title": "Beautiful Apartment in Downtown",
+  "json_script": {
+    "example": "data"
+  },
+  "price": 250000,
+  "community_fees": 150,
+  "building_area": 120,
+  "surface_area": 150,
+  "publication_date": "2023-11-12",
+  "images_urls": [
+    "https://example.com/image1.jpg",
+    "https://example.com/image2.jpg"
+  ],
+  "publisher_name": "John Doe",
+  "publisher_phone": "123-456-7890",
+  "publisher_url": "https://example.com/profile",
+  "condition": "New",
+  "construction_year": 2020,
+  "secondary_json": {
+    "info": "details"
+  },
+  "secondary_description": "Great location, modern design",
+  "facilities": [
+    "pool",
+    "gym",
+    "parking"
+  ],
+  "nearby_locations": [
+    "park",
+    "mall"
+  ],
+  "item_url": "https://example.com/property/123",
+  "state": "New York",
+  "kind": "Apartment"
+}
