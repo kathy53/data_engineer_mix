@@ -4,24 +4,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 
-import pdb
-
-
-DATABASE = "properties"
-USER = "prooperties_dev"
-PASSWORD = "properties_dev"
-HOST = "192.168.178.165"
-PORT = "5432"
-
-
-
+import os
 url = URL.create(
     drivername="postgresql",
-    username=USER,
-    password=PASSWORD,
-    host=HOST,
-    port=PORT,
-    database=DATABASE
+    username=os.getenv("USER"),
+    password=os.getenv("PASSWORD"),
+    host=os.getenv("HOST"),
+    port=os.getenv("PORT"),
+    database=os.getenv("DATABASE")
 )
 
 engine = create_engine(url)
