@@ -51,10 +51,16 @@ spec:
                 secretKeyRef:
                   name: n8n-secret
                   key: DB_POSTGRES_PASSWORD
+            - name: N8N_HOST
+              value: "n8n.ajaw.duckdns.org"
             - name: N8N_PROTOCOL
-              value: http
+              value: https
             - name: N8N_PORT
               value: "5678"
+            - name: N8N_EDITOR_BASE_URL
+              value: "https://n8n.ajaw.duckdns.org/"
+            - name: N8N_PUBLIC_URL
+              value: "https://n8n.ajaw.duckdns.org/"
             - name: N8N_BASIC_AUTH_ACTIVE
               valueFrom:
                 secretKeyRef:
