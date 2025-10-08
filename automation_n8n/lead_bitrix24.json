@@ -1,0 +1,175 @@
+{
+  "name": "lead_bitrix24",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "=googleform",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        0
+      ],
+      "id": "69fa7b60-1ee7-4546-aeb7-1dc76e3d4a7e",
+      "name": "Webhook",
+      "webhookId": "987ae71e-b7c0-4d12-8109-c8c753344748"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://b24-2rhes7.bitrix24.com/rest/1/oghpvvhgz08okqf9/crm.contact.add.json",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"fields\":{\n    \"NAME\": \"{{ $json.body.first_name }}\",\n    \"LAST_NAME\": \"{{ $json.body.last_name }}\",\n    \"EMAIL\": [\n    {\n      \"VALUE\": \"{{ $json.body.email_address }}\", \"VALUE_TYPE\": \"WORK\"}],\n    \"PHONE\": [\n    {\n      \"VALUE\": \"{{$json.body.phone_number}}\", \"VALUE_TYPE\": \"WORK\"}],\n    \"COMPANY_TITLE\": \"{{$json.body.company}}\",\n    \"COMMENTS\": \"{{$json.body.message}}\"\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5fd0972e-4eda-4043-8523-fb3e43ac5521",
+      "name": "create_contact"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://b24-2rhes7.bitrix24.com/rest/1/oghpvvhgz08okqf9/crm.deal.add.json",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \n  \"fields\": { \n  \"TITLE\": \"Lead from {{ $('Webhook').item.json.body.first_name }} {{ $('Webhook').item.json.body.last_name }}\", \n  \"STAGE_ID\": \"NEW\", \n  \"CONTACT_ID\": \"{{ $('create_contact').item.json.result }}\" } }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        0
+      ],
+      "id": "e8ae4bad-0e0d-4472-9fff-97a97f1b2f99",
+      "name": "create_deal"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#sales",
+          "mode": "name"
+        },
+        "text": "=New Lead\n\n👤 {{ $('Webhook').item.json.body.first_name }} {{ $('Webhook').item.json.body.last_name }}\n📧 {{$('Webhook').item.json.body.email_address}}\n📞 {{$('Webhook').item.json.body.phone_number}}\n🏢 {{$('Webhook').item.json.body.company}}\n📝 {{$('Webhook').item.json.body.message}}\n🔗 Deal link: https://b24-2rhes7.bitrix24.com/crm/deal/details/{{ $('create_deal').item.json.result }}/\n-----\n🤖 AI Insights:\n{{ $json.message.content }}\n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        560,
+        0
+      ],
+      "id": "28264289-7590-45ab-b246-7338cb5d1ff6",
+      "name": "send _alert",
+      "webhookId": "fd78351f-41fa-4a31-b223-099544fbde1b",
+      "credentials": {
+        "slackApi": {
+          "id": "asc0ParLcKLK2fBt",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a helpful sales assistant. Analyze the following lead submission\n\nName: {{ $('Webhook').item.json.body.first_name }}\nCompany: {{$('Webhook').item.json.body.company}}\nEmail: {{$('Webhook').item.json.body.email_address}}\nPhone: {{$('Webhook').item.json.body.phone_number}}\nMessage: {{$('Webhook').item.json.body.message}}\n\nRespond in a bullet list with:\n- Next action: recommended next step for the sales team\n- Summary: one-sentence summary of the lead\n- Intent: sales inquiry, support request, spam, or other\n- Lead quality: rating 1-5\n\n\nAdditionally, draft a professional but friendly first reply email to the lead. \nConstraints:\n- Keep the email under 150 words.\n- Thank them for reaching out.\n- Mention their company name.\n- Suggest the next step (e.g., scheduling a call, demo, or more info) based on the insights you found.\n- Use a warm, approachable tone.",
+              "role": "assistant"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        288,
+        0
+      ],
+      "id": "be70fbee-6d4c-4bba-9d49-b010a3af9cb9",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VvaU8231vDKm78ER",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "create_contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_contact": {
+      "main": [
+        [
+          {
+            "node": "create_deal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_deal": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "send _alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b6f7d0e1-eafe-4258-9552-18bbec3c1086",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "addb2f997adce4f7cb6e9fc7b14039e995b9ca16a08fa4c17fc7ca7757b1fb84"
+  },
+  "id": "AW9vUrY3ke7ETdGN",
+  "tags": []
+}
