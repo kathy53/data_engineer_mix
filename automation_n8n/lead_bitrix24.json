@@ -13,14 +13,14 @@
         -144,
         0
       ],
-      "id": "69fa7b60-1ee7-4546-aeb7-1dc76e3d4a7e",
+      "id": "69fa7b60-1e...dc76e3d4a7e",
       "name": "Webhook",
-      "webhookId": "987ae71e-b7c0-4d12-8109-c8c753344748"
+      "webhookId": "987...748"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://b24-2rhes7.bitrix24.com/rest/1/oghpvvhgz08okqf9/crm.contact.add.json",
+        "url": "https://<yourcompany>.bitrix24.com/rest/1/og...f9/crm.contact.add.json",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"fields\":{\n    \"NAME\": \"{{ $json.body.first_name }}\",\n    \"LAST_NAME\": \"{{ $json.body.last_name }}\",\n    \"EMAIL\": [\n    {\n      \"VALUE\": \"{{ $json.body.email_address }}\", \"VALUE_TYPE\": \"WORK\"}],\n    \"PHONE\": [\n    {\n      \"VALUE\": \"{{$json.body.phone_number}}\", \"VALUE_TYPE\": \"WORK\"}],\n    \"COMPANY_TITLE\": \"{{$json.body.company}}\",\n    \"COMMENTS\": \"{{$json.body.message}}\"\n  }\n}\n",
@@ -32,13 +32,13 @@
         0,
         0
       ],
-      "id": "5fd0972e-4eda-4043-8523-fb3e43ac5521",
+      "id": "5fd...21",
       "name": "create_contact"
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://b24-2rhes7.bitrix24.com/rest/1/oghpvvhgz08okqf9/crm.deal.add.json",
+        "url": "https://<your-company>.bitrix24.com/rest/1/og...f9/crm.deal.add.json",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={ \n  \"fields\": { \n  \"TITLE\": \"Lead from {{ $('Webhook').item.json.body.first_name }} {{ $('Webhook').item.json.body.last_name }}\", \n  \"STAGE_ID\": \"NEW\", \n  \"CONTACT_ID\": \"{{ $('create_contact').item.json.result }}\" } }",
@@ -50,7 +50,7 @@
         144,
         0
       ],
-      "id": "e8ae4bad-0e0d-4472-9fff-97a97f1b2f99",
+      "id": "e8ae4...b2f99",
       "name": "create_deal"
     },
     {
@@ -61,7 +61,7 @@
           "value": "#sales",
           "mode": "name"
         },
-        "text": "=New Lead\n\n👤 {{ $('Webhook').item.json.body.first_name }} {{ $('Webhook').item.json.body.last_name }}\n📧 {{$('Webhook').item.json.body.email_address}}\n📞 {{$('Webhook').item.json.body.phone_number}}\n🏢 {{$('Webhook').item.json.body.company}}\n📝 {{$('Webhook').item.json.body.message}}\n🔗 Deal link: https://b24-2rhes7.bitrix24.com/crm/deal/details/{{ $('create_deal').item.json.result }}/\n-----\n🤖 AI Insights:\n{{ $json.message.content }}\n",
+        "text": "=New Lead\n\n👤 {{ $('Webhook').item.json.body.first_name }} {{ $('Webhook').item.json.body.last_name }}\n📧 {{$('Webhook').item.json.body.email_address}}\n📞 {{$('Webhook').item.json.body.phone_number}}\n🏢 {{$('Webhook').item.json.body.company}}\n📝 {{$('Webhook').item.json.body.message}}\n🔗 Deal link: https://<your-company>.bitrix24.com/crm/deal/details/{{ $('create_deal').item.json.result }}/\n-----\n🤖 AI Insights:\n{{ $json.message.content }}\n",
         "otherOptions": {}
       },
       "type": "n8n-nodes-base.slack",
@@ -70,12 +70,12 @@
         560,
         0
       ],
-      "id": "28264289-7590-45ab-b246-7338cb5d1ff6",
+      "id": "2826...1ff6",
       "name": "send _alert",
-      "webhookId": "fd78351f-41fa-4a31-b223-099544fbde1b",
+      "webhookId": "fd7...de1b",
       "credentials": {
         "slackApi": {
-          "id": "asc0ParLcKLK2fBt",
+          "id": "as...fBt",
           "name": "Slack account"
         }
       }
