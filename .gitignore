@@ -1,3 +1,6 @@
+# k8s credentials
+automation_n8n/_infra/n8n_service_k8s/secrets/*.yaml
+automation_n8n/.env
 # Google crede
 client_secret_cred.json
 # Byte-compiled / optimized / DLL files
