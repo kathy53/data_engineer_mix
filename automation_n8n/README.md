@@ -40,7 +40,7 @@ The automated process turns raw data into __actionable sales intelligence__ leve
 __Setting n8n__ \
 You can run n8n locally, in Docker, or in the cloud. If you already have an account, proceed to the next section, "Trigger". \
 In this project, we run n8n using a Kubernetes cluster on an on-premise server; the setup includes a PostgreSQL database. For more information please check the `_infra/n8n_servicek8s/README.md` file.\
-Once you finish the setup and run the service, navigate to `n8n.ajaw.duckdnss.or` and log in. \
+Once you finish the setup and run the service, navigate to `n8n.ajaw.duckdnss.org` and log in. \
 If it's your first time using the service, proceed to configure it. Create an admin account by filling out the required information.
 
 __Trigger__
@@ -71,7 +71,10 @@ You can check the steps to send the notification in the `notification.md` file.
 __Note__ Each time you include and configure a node, test it before adding a new one by clicking the "Execute step" button at the upper right corner of the node.
 
 # n8n automation
-You can find the the n8n workflow in the `lead_bitirx24.json` file. 
+You can find the the n8n workflow in the `lead_bitrix24.json` file.
+
+# KIPs proposals
+You can find sugestions of metrics to evaluate this workflow by assesing factors to improved the lead-to-contact latency, reducing manual-entry errors and measuring the qualified leads and sales activity. 
 
 # Conclusions
 
